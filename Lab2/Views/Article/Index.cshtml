@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Article";
+    var isCommentSaved = (bool?)ViewData["IsCommentSaved"];
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-decoration-underline">The Article</h1>
+</div>
+
+@if (isCommentSaved.HasValue)
+{
+    @if (isCommentSaved.Value)
+    {
+        <div class="alert alert-success" role="alert">
+            Comment Saved!
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            Please enter valid comment!
+        </div>
+    }
+}
+
+<div>
+    <h3>Comments : <span style="color:darkblue">@ViewBag.CommentCount</span></h3>
+    @await Component.InvokeAsync("Comment")
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Comments">
+            <div class="form-group">
+                <label class="control-label">Comment</label>
+                <input class="form-control" name="Comment" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Add Comment" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
